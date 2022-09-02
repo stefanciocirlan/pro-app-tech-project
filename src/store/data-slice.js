@@ -12,6 +12,9 @@ export const dataSlice = createSlice({
       const data = action?.payload ? action.payload : [];
       return [...data];
     },
+    compareDataByEmail(state, action) {
+      return [...action.payload];
+    },
   },
 });
 
@@ -28,5 +31,23 @@ export const getAsyncData = () => {
   return (dispatch) => {
     const localData = JSON.parse(localStorage.getItem("data"));
     dispatch(dataSlice.actions.getData(localData));
+  };
+};
+
+export const compareByEmail = (data) => {
+  return (dispatch) => {
+    const storeData = [...data];
+    const sortedData = storeData.sort(function (a, b) {
+      if (a.email < b.email) {
+        return -1;
+      }
+      if (a.email > b.email) {
+        return 1;
+      }
+      return 0;
+    });
+
+    dispatch(dataSlice.actions.compareDataByEmail([...sortedData]));
+    console.log([...sortedData]);
   };
 };
