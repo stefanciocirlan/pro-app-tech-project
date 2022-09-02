@@ -3,4 +3,5 @@ export const AppRoutes = {
   LogIn: { path: "/login" },
   Form: { path: "/form" },
   LogOut: { path: "/logout" },
+  NoMatch: { path: "*" },
 };
