@@ -8,6 +8,7 @@ import Navbar from "./components/Navbar";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { getAsyncIsUserLogged } from "./store/auth-slice";
+import MoviesPage from "./pages/MoviesPage";
 
 function App() {
   const dispatch = useDispatch();
@@ -48,6 +49,7 @@ function App() {
               </ProtectedRoute>
             }
           />
+          <Route path={AppRoutes.Movies.path} element={<MoviesPage />} />
           <Route path={AppRoutes.NoMatch.path} element={<Home />} />
         </Routes>
       </div>

@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { getAsyncData } from "../store/data-slice";
+import { dataSlice, getAsyncData } from "../store/data-slice";
+import { compareByEmail } from "../store/data-slice";
 
 const HomePage = () => {
   const dispatch = useDispatch();
@@ -8,9 +9,13 @@ const HomePage = () => {
 
   useEffect(() => {
     dispatch(getAsyncData());
-    console.log(users);
   }, []);
 
+  const handleClick = () => 
+  {
+    dispatch(compareByEmail(users));
+    
+  }
   const Users = () => {
     return users.map((user) => {
       return (
@@ -24,7 +29,9 @@ const HomePage = () => {
           >
             {user.birthYear}
           </th>
-          <td className="px-6 py-4">{user.email}</td>
+          <td  className="px-6 py-4 ">
+            <span>{user.email}</span>
+          </td>
         </tr>
       );
     });
@@ -40,7 +47,7 @@ const HomePage = () => {
                 <th scope="col" className="px-6 py-3">
                   Birth Year
                 </th>
-                <th scope="col" className="px-6 py-3">
+                <th onClick={handleClick} scope="col" className="px-6 py-3 cursor-pointer">
                   Email
                 </th>
               </tr>
