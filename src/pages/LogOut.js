@@ -1,9 +1,12 @@
 import { AppRoutes } from "../routes/routes";
 import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { asyncLogOut } from "../store/auth-slice";
 
 const LogOut = () => {
+  const dispatch = useDispatch();
   const handleClick = () => {
-    localStorage.setItem("is_logged_in", false);
+    dispatch(asyncLogOut());
   };
   return (
     <div className="m-3">
