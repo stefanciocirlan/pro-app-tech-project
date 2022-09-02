@@ -1,6 +1,6 @@
 import { Disclosure } from "@headlessui/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { navigation } from "../utils/NavLinks";
 
 function classNames(...classes) {
@@ -10,19 +10,18 @@ function classNames(...classes) {
 export default function Navbar() {
   const displayNavLinks = (props) => {
     return navigation.map((item) => (
-      <Link
+      <NavLink
         key={item.name}
         to={item.href}
-        className={classNames(
-          item.current
-            ? "bg-gray-900 text-white"
-            : "text-gray-300 hover:bg-gray-700 hover:text-white",
-          props.style
-        )}
+        className={({ isActive }) =>
+          (isActive
+            ? `bg-gray-900 text-white ${props.style}`
+            : `text-gray-300 hover:bg-gray-700 hover:text-white ${props.style}`)
+        }
         aria-current={item.current ? "page" : undefined}
       >
         {item.name}
-      </Link>
+      </NavLink>
     ));
   };
 
