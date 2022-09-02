@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { getData } from "../store/localstore";
+import { compareByEmail } from "../utils/helpers";
 
 const HomePage = () => {
   const [users, setUsers] = useState([]);
@@ -8,6 +9,11 @@ const HomePage = () => {
     const localData = JSON.parse(getData());
     localData && setUsers(localData);
   }, []);
+
+  const handleClick = () => {
+    const comparedUsers = compareByEmail(users);
+    setUsers([...comparedUsers]);
+  };
 
   const Users = () => {
     return users.map((user) => {
@@ -37,7 +43,7 @@ const HomePage = () => {
                 <th scope="col" className="px-6 py-3">
                   Birth Year
                 </th>
-                <th scope="col" className="px-6 py-3">
+                <th onClick={handleClick} scope="col" className="px-6 py-3">
                   Email
                 </th>
               </tr>
@@ -48,9 +54,7 @@ const HomePage = () => {
           </table>
         ) : (
           <div className=" bg-gray-800 text-gray-400 max-w-7xl px-2 sm:px-6 ">
-            <div className="relative flex h-16 items-center ">
-              No users
-            </div>
+            <div className="relative flex h-16 items-center ">No users</div>
           </div>
         )}
       </div>
