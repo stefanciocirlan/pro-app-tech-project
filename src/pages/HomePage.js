@@ -1,30 +1,58 @@
+import { useEffect, useState } from "react";
+import { getData } from "../store/localstore";
+
 const HomePage = () => {
+  const [users, setUsers] = useState([]);
+
+  useEffect(() => {
+    const localData = JSON.parse(getData());
+    localData && setUsers(localData);
+  }, []);
+
+  const Users = () => {
+    return users.map((user) => {
+      return (
+        <tr
+          key={user.key}
+          className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
+        >
+          <th
+            scope="row"
+            className="px-6 py-4 font-medium text-gray-900 dark:text-white whitespace-nowrap"
+          >
+            {user.birthYear}
+          </th>
+          <td className="px-6 py-4">{user.email}</td>
+        </tr>
+      );
+    });
+  };
   return (
-    <div class="max-w-2xl mx-auto">
-      <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
-        <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-          <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-            <tr>
-              <th scope="col" class="px-6 py-3">
-                Birth Year
-              </th>
-              <th scope="col" class="px-6 py-3">
-                Email
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-              <th
-                scope="row"
-                class="px-6 py-4 font-medium text-gray-900 dark:text-white whitespace-nowrap"
-              >
-                1996
-              </th>
-              <td class="px-6 py-4">stefanelciocci@gmail.com</td>
-            </tr>
-          </tbody>
-        </table>
+    <div className="max-w-2xl mx-auto">
+      <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
+        {users.length ? (
+          <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+            <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+              <tr>
+                <th scope="col" className="px-6 py-3">
+                  Birth Year
+                </th>
+                <th scope="col" className="px-6 py-3">
+                  Email
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <Users />
+            </tbody>
+          </table>
+        ) : (
+          <div className=" bg-gray-800 text-gray-400 max-w-7xl px-2 sm:px-6 ">
+            <div className="relative flex h-16 items-center ">
+              No users
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );

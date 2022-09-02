@@ -1,9 +1,10 @@
 import { AppRoutes } from "../routes/routes";
 import { Link } from "react-router-dom";
+import { logOut } from "../store/localstore";
 
 const LogOut = () => {
   const handleClick = () => {
-    localStorage.setItem("is_logged_in", false);
+    logOut();
   };
   return (
     <div className="m-3">
